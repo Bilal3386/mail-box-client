@@ -1,8 +1,9 @@
-import SignUp from "./components/Authentication/SignUp";
+import Authentication from "./components/Authentication/Authentication";
+
 
 function App() {
   return (
-    <SignUp />
+    <Authentication />
   );
 }
 
