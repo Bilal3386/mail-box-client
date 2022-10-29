@@ -15,6 +15,11 @@ const Header = () => {
     <nav>
       <ul>
       <li>
+            <NavLink to="/inbox"  className={({ isActive }) => (isActive ? classes.active : 'inactive')} end>
+              Inbox
+            </NavLink>
+          </li>
+      <li>
             <NavLink to="/compose"  className={({ isActive }) => (isActive ? classes.active : 'inactive')} end>
               Compose
             </NavLink>

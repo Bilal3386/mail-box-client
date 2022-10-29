@@ -23,3 +23,33 @@ export const composeMail = (email, text) => {
     }
   };
 };
+
+
+export const Fetching = () => {
+    return async (dispatch) => {
+      const loggedInUserMail = localStorage.getItem('email')
+      const userMail = loggedInUserMail.split('.').join('')
+      const fetchAllMails = async () => {
+        const response = await axios.get(
+          `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${userMail}.json`,
+          
+        );
+        const loadedEmail = [];
+        for (const key in response.data) {
+            loadedEmail.push({
+            id: key,
+            email: response.data[key].email,
+            text: response.data[key].text,
+          });
+        }
+       return loadedEmail
+      };
+      try {
+        const data = await fetchAllMails();
+        console.log(data)
+        dispatch(composeActions.fetchEmail(data))
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
