@@ -6,7 +6,7 @@ import { composeMail } from "../../store/compose/compose-actions";
 import Button from "../UI/Button";
 import classes from "./ComposeMail.module.css";
 const ComposeMail = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [editorInput, setEditorInput] = useState("");
   const emailInputRef = useRef();
 
@@ -23,21 +23,33 @@ const ComposeMail = () => {
     const enteredEmail = emailInputRef.current.value;
     // enteredEditor = editorInputRef.current.value;
 
-    dispatch(composeMail(enteredEmail, editorInput))
+    dispatch(composeMail(enteredEmail, editorInput));
     event.target.reset();
     setEditorInput("");
   };
 
   return (
     <section className={classes.compose}>
+      <h1>Compose Your Mail..</h1>
       <form onSubmit={onSubmitHandler}>
-        <input autoComplete="on" type="email" ref={emailInputRef} />
+        <input
+          autoComplete="on"
+          placeholder="To..."
+          type="email"
+          ref={emailInputRef}
+        />
         <Editor
           //editorState={contentState}
           toolbarClassName="toolbarClassName"
           wrapperClassName="wrapperClassName"
           editorClassName="editorClassName"
-          editorStyle={{ border: "1px solid black", height: "10rem" }}
+          placeholder="Subject...."
+          editorStyle={{
+            border: "1px solid #C0C0C0",
+            height: "10rem",
+            padding: "8px",
+            overflow: "hidden",
+          }}
           onContentStateChange={onEditorStateChange}
           //ref={editorInputRef}
         />

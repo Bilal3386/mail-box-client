@@ -1,4 +1,12 @@
 .inbox {
-    margin: 2rem 6rem;
-    text-align: center;
+  width: 50rem;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.inbox div {
+  border: 1px solid rgb(197, 197, 197);
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  text-align: start;
 }

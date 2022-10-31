@@ -14,9 +14,12 @@ const Inbox = () => {
             <Link
               to="/emailDetails"
               state={item}
-              style={{ textDecoration: "none", color: 'red' }}
+              style={{
+                textDecoration: "none",
+                color: `${item.read}`,
+              }}
             >
-              {item.email}{" "}
+              {item.senderEmail}{" "}
             </Link>
           </div>
         );

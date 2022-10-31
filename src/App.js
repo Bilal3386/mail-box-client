@@ -7,13 +7,13 @@ import ComposePage from "./pages/ComposePage";
 import HomePage from "./pages/HomePage";
 import InboxPage from "./pages/InboxPage";
 import MailDetailPage from "./pages/MailDetailPage";
-import { Fetching } from "./store/compose/compose-actions";
+import { FetchingDataInbox } from "./store/compose/compose-actions";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(Fetching())
+    dispatch(FetchingDataInbox())
   },[dispatch])
   return (
     <Fragment>
