@@ -128,3 +128,33 @@ export const deleteInboxMessage = (id) => {
     }
   };
 };
+
+export const FetchingSentMail = () => {
+  return async (dispatch) => {
+    const loggedInUserMail = localStorage.getItem("email");
+    const userMail = loggedInUserMail?.split(".").join("");
+    const fetchAllMails = async () => {
+      const response = await axios.get(
+        `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${userMail}/sent.json`
+      );
+      const loadedEmail = [];
+      for (const key in response.data) {
+        loadedEmail.push({
+          id: key,
+          email: response.data[key].email,
+          text: response.data[key].text,
+          read: response.data[key].read,
+          senderEmail: response.data[key].senderEmail,
+        });
+      }
+      return loadedEmail;
+    };
+    try {
+      const data = await fetchAllMails();
+      console.log(data);
+      dispatch(composeActions.fetchSentMail(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

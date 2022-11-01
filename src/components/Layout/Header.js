@@ -9,7 +9,7 @@ const Header = () => {
 
   const unreadQuantity = inboxEmail.reduce(
     (ack, val) => (val.read === "red" ? ack + 1 : 0),
-    1
+    0
   );
   console.log(unreadQuantity);
   const logOutHandler = () => {};
@@ -18,6 +18,17 @@ const Header = () => {
       <h2>Welcome to Mail Box!!!</h2>
       <nav>
         <ul>
+          <li>
+            <NavLink
+              to="/sentMail"
+              className={({ isActive }) =>
+                isActive ? classes.active : "inactive"
+              }
+              end
+            >
+              SentMail
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="/inbox"

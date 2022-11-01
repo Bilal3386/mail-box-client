@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const composeSlice = createSlice({
     name: 'compose',
-    initialState: {cleanEmail: '', inboxEmail: []},
+    initialState: {cleanEmail: '', inboxEmail: [], sentMail: []},
     reducers: {
         // composeNewMail(state, action)
         // {
@@ -11,6 +11,9 @@ const composeSlice = createSlice({
         //     // console.log("hello")
         //     state.inboxEmail = [...state.inboxEmail, action.payload]
         // },
+        fetchSentMail(state, action) {
+            state.sentMail = action.payload
+        },
         fetchEmail (state, action) {
             state.inboxEmail = action.payload
         },
