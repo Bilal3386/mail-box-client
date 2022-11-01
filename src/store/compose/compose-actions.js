@@ -13,27 +13,26 @@ export const composeMail = (email, text) => {
         {
           email,
           text,
-          senderEmail: senderMail,
+          senderEmail: loggedInUserMail,
           read: "red",
         })
       );
-       await axios.post(
+      await axios.post(
         `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${senderMail}/sent.json`,
         (senderMail,
         {
           email,
           text,
-          senderEmail: senderMail,
-          read: "red",
+          senderEmail: loggedInUserMail,
         })
       );
       console.log(response.data);
       return response.data;
     };
     try {
-       await postData();
-    //   const obj = { id: data.name, email: email, text: text, read: "red" };
-    //   dispatch(composeActions.composeNewMail(obj));
+      await postData();
+      //   const obj = { id: data.name, email: email, text: text, read: "red" };
+      //   dispatch(composeActions.composeNewMail(obj));
     } catch (error) {
       console.log(error);
     }
@@ -44,20 +43,20 @@ export const afterReadingMail = (email, text, id) => {
   return async (dispatch) => {
     const loggedInUserMail = localStorage.getItem("email");
     const senderMail = loggedInUserMail?.split(".").join("");
-    const userMail = email?.split(".").join("");
-    console.log(email)
+    //const userMail = email?.split(".").join("");
+    console.log(email);
     if (id !== undefined) {
       const postData = async () => {
-        console.log('hello put')
+        console.log("hello put");
         const response = await axios.put(
-          `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${userMail}/inbox/${id}.json`,
+          `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${senderMail}/inbox/${id}.json`,
           (senderMail,
-            {
-              email,
-              text,
-              senderEmail: senderMail,
-              read: 'blue',
-            })
+          {
+            email: loggedInUserMail,
+            text,
+            senderEmail: email,
+            read: "blue",
+          })
         );
         return response.data;
       };
@@ -104,6 +103,26 @@ export const FetchingDataInbox = () => {
       const data = await fetchAllMails();
       console.log(data);
       dispatch(composeActions.fetchEmail(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteInboxMessage = (id) => {
+  return async (dispatch) => {
+    const loggedInUserMail = localStorage.getItem("email");
+    const senderMail = loggedInUserMail?.split(".").join("");
+    const deleteMessage = async () => {
+      const response = await axios.delete(
+        `https://mail-box-client-7f5fa-default-rtdb.firebaseio.com/${senderMail}/inbox/${id}.json`
+      );
+      return response.data;
+    };
+    try {
+      const data = await deleteMessage();
+      console.log(data);
+      dispatch(composeActions.onInboxMessageDelete(id));
     } catch (error) {
       console.log(error);
     }

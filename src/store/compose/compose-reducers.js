@@ -28,6 +28,11 @@ const composeSlice = createSlice({
             })
             state.inboxEmail = existing
             console.log(existing)
+        },
+        onInboxMessageDelete(state, action) {
+            const id = action.payload
+            const newMail = [...state.inboxEmail]
+            state.inboxEmail = newMail.filter((ele) => ele.id !== id)
         }
     }
 })

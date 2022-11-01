@@ -1,10 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteInboxMessage } from "../../store/compose/compose-actions";
 import classes from "./Inbox.module.css";
 const Inbox = () => {
   const inboxEmail = useSelector((state) => state.compose.inboxEmail);
+  const dispatch = useDispatch();
   console.log(inboxEmail);
+
   return (
     <section className={classes.inbox}>
       <h1>Received Mail</h1>
@@ -21,6 +24,9 @@ const Inbox = () => {
             >
               {item.senderEmail}{" "}
             </Link>
+            <button onClick={() => dispatch(deleteInboxMessage(item.id))}>
+              DELETE
+            </button>
           </div>
         );
       })}
